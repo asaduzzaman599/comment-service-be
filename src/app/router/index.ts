@@ -11,4 +11,4 @@ routes.forEach(route=>{
   router.use(route.path, route.module)
 })
 
-export default routes
+export const AppRouter = router
