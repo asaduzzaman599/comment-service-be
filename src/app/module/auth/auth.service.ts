@@ -19,7 +19,6 @@ const signup = async (payload: UserCreateDto) => {
   const createdUser = await db.insertOne(payload);
 
   const user = await db.findOne({_id: createdUser.insertedId})
-  console.log({user})
   delete (user as unknown as User)?.password
   return user
 }
@@ -36,9 +35,8 @@ const signIn = async (payload: {email: string; password: string})=>{
 
   if(userExist?.password && !(await bcrypt.compare(payload.password, userExist?.password)))
     throw new Error('Email or Password not matched!');
-
-    const accessToken = JwtHelpers.generateToken({userId: userExist?.id, role: userExist?.role})
-    const {password, ...user} = userExist
+  const {password, ...user} = userExist
+    const accessToken = JwtHelpers.generateToken(user)
     return {accessToken, user}
 
  } catch(e: any){

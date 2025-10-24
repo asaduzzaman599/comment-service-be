@@ -1,7 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from "express"
 import responseData from "../../helpers/response-data"
 import { AuthService } from "./auth.service"
-import { UserCreateDto } from "./dto/user-create.dto"
 
 const signup = async (req: Request, res: Response, next:  NextFunction)=>{
  try{
