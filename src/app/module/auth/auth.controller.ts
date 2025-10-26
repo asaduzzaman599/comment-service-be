@@ -37,7 +37,23 @@ const signIn= async (req: Request, res: Response, next:  NextFunction)=>{
  }
 }
 
+const me= async (req: Request, res: Response, next:  NextFunction)=>{
+ try{
+   
+const { authorization } = req.headers
+  const result = {user: req.user, accessToken: authorization}
+
+  return responseData({
+    result
+  }, res)
+
+ } catch(e){
+    next(e)
+ }
+}
+
 export const AuthController = {
   signup,
-  signIn
+  signIn,
+  me
 } 

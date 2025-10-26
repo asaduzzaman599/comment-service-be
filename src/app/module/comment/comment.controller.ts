@@ -12,7 +12,7 @@ const create = async (req: Request, res: Response, next:  NextFunction)=>{
      const user = (req as any).user as User; 
 
 
-  const result = await CommentService.create(body, new ObjectId(user._id))
+  const result = await CommentService.create(body, user)
 
   return responseData({
     result,
@@ -53,7 +53,7 @@ const findOne = async (req: Request, res: Response, next:  NextFunction)=>{
   const result = await CommentService.findOne(new ObjectId(id))
 
   return responseData({
-    result,
+    result: {...result, user: req.user as unknown as User},
   }, res)
 
  } catch(e){
