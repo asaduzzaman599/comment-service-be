@@ -53,7 +53,7 @@ const findOne = async (req: Request, res: Response, next:  NextFunction)=>{
   const result = await CommentService.findOne(new ObjectId(id))
 
   return responseData({
-    result: {...result, user: req.user as unknown as User},
+    result
   }, res)
 
  } catch(e){

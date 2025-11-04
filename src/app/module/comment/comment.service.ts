@@ -3,6 +3,7 @@ import { getCollection } from "../../../db_client"
 import { CommentCreateDto } from "./dto/comment-create.dto"
 import { getIO } from "../../../socket"
 import { User } from "../auth/entity/user.entity"
+import { getUserCollect } from "../auth/auth.service"
 
 
 const getCommentCollect = () => {
@@ -35,7 +36,11 @@ const reply = async (payload: CommentCreateDto, userId: ObjectId, commentId: Obj
 }
 const findOne = async (commentId: ObjectId) => {
 
-  return await getCommentCollect().findOne({_id: commentId})
+  const comment = await getCommentCollect().findOne({_id: commentId})
+
+  if(!comment)return null
+  const user = await getUserCollect().findOne(comment.userId);
+  return {...comment, user}
 }
 const findAll = async (option?: {sortBy: string; sortOrder: 'asc' | 'desc'; limit: number; page: number }) => {
     const limit = option?.limit ? +option.limit : null

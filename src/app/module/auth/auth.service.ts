@@ -6,7 +6,7 @@ import config from "../../config";
 import { User } from "./entity/user.entity";
 import { ObjectId } from 'mongodb'
 
-const getUserCollect = () => {
+export const getUserCollect = () => {
  return getCollection('users')
 }
 
